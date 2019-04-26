@@ -208,27 +208,6 @@ async def univsaye(cowmsg):
 
         await cowmsg.edit(f"`{cheese.milk(text).replace('`', '´')}`")
 
-@register(outgoing=True, pattern="^.milk ?(.*)")
-async def milk(milk):
-    if not milk.text[0].isalpha() and milk.text[0] not in ("/", "#", "@", "!"):
-        message = milk.pattern_match.group(1)
-        if message == "":
-            message = "Give me some milk boi!"
-        message_len = len(message)
-        milk_ascii=('`{}\n'
-                    '| {} |\n'
-                    '{}\n'
-                    '   \\\n'
-                    '    \\\n'
-                    '      _____\n'
-                    '     j_____j\n'
-                    '    /_____/_\\\n'
-                    '    |_(~)_| |\n'
-                    '    | )"( | |\n'
-                    '    |(@_@)| |\n'
-                    '    |_____|,`\'').format("-" * (message_len + 4), message, "-" * (message_len + 4))
-        await milk.edit(milk_ascii)
-
 @register(outgoing=True, pattern="^:/$")
 async def kek(keks):
     """ Check yourself ;)"""
