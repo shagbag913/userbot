@@ -59,5 +59,5 @@ async def keyword_banner(message):
                 )
             
             # no need to keep checking if they got banned
-            if banned:
+            if banned_spam:
                 return
