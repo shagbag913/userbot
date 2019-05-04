@@ -24,17 +24,6 @@ async def keyword_banner(message):
     admin = chat.admin_rights
     creator = chat.creator
     banned_spam = False
-    rights = ChatBannedRights(
-        until_date=None,
-        view_messages=True,
-        send_messages=True,
-        send_media=True,
-        send_stickers=True,
-        send_gifs=True,
-        send_games=True,
-        send_inline=True,
-        embed_links=True,
-    )
 
     # Can't ban someone if ya aren't admin :P
     if not admin and not creator:
@@ -44,9 +33,14 @@ async def keyword_banner(message):
     for keyword in KEYWORDS:
         if keyword in text.lower():
             try:
-                await message.delete()
-                await message.client(EditBannedRequest(chat_id, sender_id, rights))
-                banned_spam = True
+                user_messages = message.client.iter_messages(chat_id, from_user=sender_id)
+
+                # delete __all__ messages from user
+                async for user_message in user_messages:
+                    await user_message.delete()
+
+                if await ban_user(message):
+                    banned_spam = True
             except:
                 pass
 
@@ -61,3 +55,26 @@ async def keyword_banner(message):
             # no need to keep checking if they got banned
             if banned_spam:
                 return
+
+async def ban_user(message):
+    # Chat ID
+    chat_id = message.chat_id
+
+    # User ID
+    user_id = message.sender_id
+
+    # Ban rights
+    rights = ChatBannedRights(
+        until_date=None,
+        view_messages=True,
+        send_messages=True,
+        send_media=True,
+        send_stickers=True,
+        send_gifs=True,
+        send_games=True,
+        send_inline=True,
+        embed_links=True,
+    )
+
+    # Ban user_id from chat_id
+    return await message.client(EditBannedRequest(chat_id, user_id, rights))
