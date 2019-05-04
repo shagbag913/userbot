@@ -33,11 +33,7 @@ async def keyword_banner(message):
     for keyword in KEYWORDS:
         if keyword in text.lower():
             try:
-                user_messages = message.client.iter_messages(chat_id, from_user=sender_id)
-
-                # delete __all__ messages from user
-                async for user_message in user_messages:
-                    await user_message.delete()
+                await message.delete()
 
                 if await ban_user(message):
                     banned_spam = True
