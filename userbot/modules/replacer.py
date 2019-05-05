@@ -9,11 +9,11 @@ from userbot import LOGGER, LOGGER_GROUP
 from userbot.events import register
 
 replacements = {
-    '.SHG': '¯\_(ツ)_/¯',
-    '.SWORD': 'o()xxxx[{::::::::::::::::::>',
-    '.PFFT': '[¬º-°]¬',
-    '.ROLLEYES': '  (◔_◔)',
-    '.KILL': '  (⌐■_■)︻╦╤─ (╥﹏╥)'
+    '.shrug': '¯\_(ツ)_/¯',
+    '.sword': 'o()xxxx[{::::::::::::::::::>',
+    '.pfft': '[¬º-°]¬',
+    '.rolleyes': '  (◔_◔)',
+    '.kill': '  (⌐■_■)︻╦╤─ (╥﹏╥)'
 }
 
 @register(outgoing=True)
