@@ -17,10 +17,12 @@ replacements = {
 }
 
 @register(outgoing=True)
-async def rtreplacer(message):
-    text = message.text
+async def replacer(message):
+    oldtext = message.text
+    newtext = message.text
     replacement_keys = replacements.keys()
     for replacement in replacement_keys:
-        if replacement in text:
-            text = text.replace(replacement, replacements[replacement])
-    await message.edit(text)
+        if replacement in newtext:
+            newtext = newtext.replace(replacement, replacements[replacement])
+    if newtext != oldtext:
+        await message.edit(newtext)
